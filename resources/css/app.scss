@@ -1,0 +1,36 @@
+@import "bootstrap/scss/bootstrap";
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+    list-style: none;
+    border-radius: 0.25rem;
+}
+
+.pagination .page-item {
+    margin: 0 2px; /* Espaçamento entre os botões */
+}
+
+.pagination .page-link {
+    padding: 0.25rem 0.5rem; /* Diminui o tamanho dos botões */
+    font-size: 0.875rem; /* Diminui o tamanho da fonte */
+    border-radius: 0.25rem;
+}
+
+.pagination .page-link:hover {
+    background-color: #f8f9fa; /* Cor de fundo ao passar o mouse */
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    background-color: #fff;
+    border-color: #dee2e6;
+}
