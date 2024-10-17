@@ -3,38 +3,38 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ApiFormRequest;
 use App\Http\Requests\UserAuthRequest;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use App\Actions\User\UserCreationAction;
+use App\Actions\User\ShowUserAction;
 
 class UserController extends Controller
 {
-    public function store(UserAuthRequest $request)
-{
-    // A validação já será feita automaticamente pelo FormRequest
-    // Criação do usuário
-    $user = User::create([
-        'name' => $request->name,
-        'email' => $request->email,
-        'password' => Hash::make($request->password), // Hasheia a senha
-    ]);
+    protected $userCreationAction;
+    protected $showUserAction;
 
-    return response()->json(['user' => $user], 201);
-}
-public function show($id)
-{
-    // Busca o usuário pelo ID
-    $user = User::find($id);
-
-    // Verifica se o usuário foi encontrado
-    if (!$user) {
-        return response()->json(['error' => 'Usuário não encontrado'], 404);
+    public function __construct(UserCreationAction $userCreationAction, ShowUserAction $showUserAction)
+    {
+        $this->userCreationAction = $userCreationAction;
+        $this->showUserAction = $showUserAction;
     }
 
-    // Retorna o usuário como JSON
-    return response()->json($user);
-}
+    public function store(UserAuthRequest $request)
+    {
+        // Executando a ação de criação do usuário
+        $user = $this->userCreationAction->execute($request->validated());
+
+        return response()->json(['user' => $user], 201);
+    }
+
+    public function show($id)
+    {
+        try {
+            // Executando a ação de mostrar o usuário
+            $user = $this->showUserAction->execute($id);
+
+            return response()->json($user);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 404);
+        }
+    }
 }
