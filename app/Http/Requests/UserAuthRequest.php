@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SeriesFormRequest extends FormRequest
+class UserAuthRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return true; // Ajuste conforme sua lógica de autorização
     }
 
     /**
@@ -22,10 +22,9 @@ class SeriesFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'min:2', 'string'],
-            'cover' => ['nullable', 'mimes:jpeg,png,jpg,gif,svg,kra', 'max:20480'],
-            'seasons' => ['required', 'integer', 'min:1', 'max:50'],
-            'episodes' => ['required', 'integer', 'min:1', 'max:100'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'], // Certifique-se de que está enviando `password_confirmation` na requisição
         ];
     }
 }
