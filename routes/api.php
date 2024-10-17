@@ -8,7 +8,7 @@ use App\Http\Middleware\JwtAuthMiware; // Atualizado para o nome correto do midd
 // Aplicando o middleware JWT nas rotas protegidas
 Route::middleware([JwtAuthMiware::class])->group(function () {
     // Rota para obter informações do usuário autenticado
-    Route::get('/user', [UserController::class, 'show']); // Chama o método show do UserController
+    Route::get('/user/{id}', [UserController::class, 'show']); // Chama o método show do UserController
 
     // Rota para criar um novo usuário
     Route::post('/users', [UserController::class, 'store']);
