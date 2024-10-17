@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\JwtAuthMiware; // Atualizado para o nome correto do middleware
 
