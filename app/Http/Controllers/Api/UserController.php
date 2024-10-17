@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserAuthRequest;
-use App\Actions\User\UserCreationAction;
-use App\Actions\User\ShowUserAction;
+use App\Actions\UserCreationAction;
+use App\Actions\ShowUserAction;
 
 class UserController extends Controller
 {
